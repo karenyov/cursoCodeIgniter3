@@ -10,10 +10,10 @@ $this->load->view('template/menu');
         <br>
         <table class="table table-striped">
             <thead>
-                <th>Id</th>
-                <th>Produto</th>
-                <th>Descrição</th>
-                <th>Preço</th>
+            <th>Id</th>
+            <th>Produto</th>
+            <th>Descrição</th>
+            <th>Preço</th>
             </thead>
             <tr>
                 <td>1</td>
@@ -48,6 +48,7 @@ $this->load->view('template/menu');
         </table>
         <div class="pagination">
             <!-- paginação aqui -->
+            <?= $this->pagination->create_links() ?>
         </div>
     </div>
 </div>

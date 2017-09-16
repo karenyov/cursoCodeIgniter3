@@ -10,10 +10,10 @@
 
     <title>Projeto CodeIgniter</title>
 
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?=site_url("assets/css/bootstrap.min.css")?>">
   
     <!-- Custom styles for this template -->
-    <link href="assets/css/navbar-static-top.css" rel="stylesheet">
+    <link href="<?=site_url("assets/css/navbar-static-top.css")?>" rel="stylesheet">
 
   </head>
 

@@ -7,7 +7,7 @@ $this->load->view('template/menu');
     <div class="col-lg-12">
         <h1>Lista de Clientes</h1>
         <p>Listagem de clientes</p>
-        <a href="/clientes/cadastro" class="btn btn-success pull-right">Cadastrar Cliente</a>
+        <a href="<?=site_url('clientes/cadastro')?>" class="btn btn-success pull-right">Cadastrar Cliente</a>
         <div class="form-inline">
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Sua busca aqui">

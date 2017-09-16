@@ -4,7 +4,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Produtos extends CI_Controller {
 
-    public function index() {
+    public function index($page=1) {
+        $this->pagination->initialize([
+            'total_rows' => 30,
+            'per_page' => 5,
+            'base_url' => base_url() . '/produtos/index',
+            'uri_segment' => 3,
+        ]);
         $this->load->view('produtos/list');
     }
     

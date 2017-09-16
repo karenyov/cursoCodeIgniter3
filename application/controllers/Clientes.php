@@ -35,7 +35,7 @@ class Clientes extends CI_Controller {
         echo 'Resgate um cliente codigo: ' . $id;
     }
 
-    public function create() {
+    public function cadastro() {
         echo 'Salva novo cliente';
     }
 
