@@ -4,6 +4,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Clientes extends CI_Controller {
 
+    function __construct() {
+        parent::__construct();
+    }
+
     public function index() {
 
         $clientes = [
@@ -36,7 +40,28 @@ class Clientes extends CI_Controller {
     }
 
     public function cadastro() {
-        echo 'Salva novo cliente';
+        $config = array(
+            array(
+                'field' => 'nome',
+                'label' => 'Nome',
+                'rules' => 'required|min_length[3]'
+            ),
+            array(
+                'field' => 'email',
+                'label' => 'Email',
+                'rules' => 'required|valid_email'
+            )
+        );
+        $this->form_validation->set_rules($config);
+        if ($this->form_validation->run()) {
+            
+            $this->input->post('nome');
+            
+        } else {
+
+
+            $this->load->view('clientes/cadastro');
+        }
     }
 
 }
