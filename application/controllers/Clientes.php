@@ -9,7 +9,7 @@ class Clientes extends CI_Controller {
     }
 
     public function index() {
-
+        
         $clientes = [
             [
                 'id' => 1,
