@@ -41,16 +41,16 @@ class Clientes extends CI_Controller {
         if ($this->form_validation->run()) {
 
             $this->load->database();
-            $sql = 'INSERT INTO clientes (nome,email,cadastrado_em) VALUES(?,?,?)';
-
-            $this->db->query($sql, [
-                $this->input->post('nome'),
-                $this->input->post('email'),
-                date('Y-m-d H:i:s')
+            $insert = $this->db->insert('clientes', [
+                'nome' =>$this->input->post('nome'),
+                'email' => $this->input->post('email'),
+                'cadastrado_em' => date('Y-m-d H:i:s')
             ]);
-
-            if (!$this->db->error()) {
+            
+            if ($insert) {
                 redirect('clientes');
+            } else {
+                show_error('Erro ao cadastrar cliente');
             }
         } else {
 
