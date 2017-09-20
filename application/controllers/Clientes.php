@@ -10,26 +10,11 @@ class Clientes extends CI_Controller {
 
     public function index() {
         
-        $clientes = [
-            [
-                'id' => 1,
-                'nome' => 'Pedro de Lima',
-                'email' => 'pedro@mail.com',
-                'cadastrado_em' => '12/05/2015'
-            ],
-            [
-                'id' => 2,
-                'nome' => 'Rogerio de Souza',
-                'email' => 'rogerio@mail.com',
-                'cadastrado_em' => '02/11/2015'
-            ],
-            [
-                'id' => 3,
-                'nome' => 'Ana Paula',
-                'email' => 'ana@mail.com',
-                'cadastrado_em' => '15/04/2011'
-            ]
-        ];
+        $this->load->database();
+        
+        $query = $this->db->query('SELECT * FROM clientes');
+        $clientes = $query->result_array();
+
         $data['clientes'] = $clientes;
         $this->load->vars($data);
         $this->load->view('clientes/list');
@@ -54,9 +39,19 @@ class Clientes extends CI_Controller {
         );
         $this->form_validation->set_rules($config);
         if ($this->form_validation->run()) {
-            
-            $this->input->post('nome');
-            
+
+            $this->load->database();
+            $sql = 'INSERT INTO clientes (nome,email,cadastrado_em) VALUES(?,?,?)';
+
+            $this->db->query($sql, [
+                $this->input->post('nome'),
+                $this->input->post('email'),
+                date('Y-m-d H:i:s')
+            ]);
+
+            if (!$this->db->error()) {
+                redirect('clientes');
+            }
         } else {
 
 
