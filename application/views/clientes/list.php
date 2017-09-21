@@ -33,7 +33,7 @@ $this->load->view('template/menu');
                     <td><?= $cliente['cadastrado_em'] ?></td>
                     <td>
                         <a href="" class="btn btn-primary">Alterar</a>
-                        <a href="" class="btn btn-danger">Excluir</a>
+                        <a href="<?=site_url(['clientes','delete', $cliente['id']])?>" class="btn btn-danger">Excluir</a>
                     </td>
                 </tr>
             <?php endforeach; ?>

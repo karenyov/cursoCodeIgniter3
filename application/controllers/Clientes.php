@@ -9,12 +9,9 @@ class Clientes extends CI_Controller {
     }
 
     public function index() {
-        
         $this->load->database();
-        
-        $query = $this->db->query('SELECT * FROM clientes');
-        $clientes = $query->result_array();
-
+        $this->load->model('cliente');
+        $clientes = $this->cliente->getAll();
         $data['clientes'] = $clientes;
         $this->load->vars($data);
         $this->load->view('clientes/list');
@@ -25,6 +22,7 @@ class Clientes extends CI_Controller {
     }
 
     public function cadastro() {
+        $this->load->model('cliente');
         $config = array(
             array(
                 'field' => 'nome',
@@ -40,8 +38,7 @@ class Clientes extends CI_Controller {
         $this->form_validation->set_rules($config);
         if ($this->form_validation->run()) {
 
-            $this->load->database();
-            $insert = $this->db->insert('clientes', [
+            $insert = $this->cliente->insert([
                 'nome' =>$this->input->post('nome'),
                 'email' => $this->input->post('email'),
                 'cadastrado_em' => date('Y-m-d H:i:s')
@@ -57,6 +54,15 @@ class Clientes extends CI_Controller {
 
             $this->load->view('clientes/cadastro');
         }
+    }
+    
+    public function delete($id){
+        $this->load->model('cliente');
+        
+        if($this->cliente->delete($id)){
+            redirect('clientes');
+        }
+        show_error('Erro ao excluir.');
     }
 
 }
