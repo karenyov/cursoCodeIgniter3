@@ -7,6 +7,12 @@ $this->load->view('template/menu');
     <div class="col-lg-12">
         <h1>Lista de Clientes</h1>
         <p>Listagem de clientes</p>
+        <?php if($this->session->flashdata('success')): ?>
+            <div class="alert alert-success">
+                 <?= $this->session->flashdata('success') ?>
+            </div>
+        <?php endif; ?>
+        
         <a href="<?=site_url('clientes/cadastro')?>" class="btn btn-success pull-right">Cadastrar Cliente</a>
         <div class="form-inline">
             <div class="input-group">

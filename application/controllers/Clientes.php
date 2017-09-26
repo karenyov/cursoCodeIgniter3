@@ -9,7 +9,7 @@ class Clientes extends CI_Controller {
     }
 
     public function index() {
-        $this->load->database();
+        $this->load->library('session');
         $this->load->model('cliente');
         $clientes = $this->cliente->getAll();
         $data['clientes'] = $clientes;
@@ -23,6 +23,7 @@ class Clientes extends CI_Controller {
 
     public function cadastro() {
         $this->load->model('cliente');
+        $this->load->library('session');
         if ($this->cliente->validaForm()) {
 
             $insert = $this->cliente->insert([
@@ -32,6 +33,7 @@ class Clientes extends CI_Controller {
             ]);
 
             if ($insert) {
+                $this->session->set_flashdata('success', 'Cliente cadastrado com sucesso.');
                 redirect('clientes');
             } else {
                 show_error('Erro ao cadastrar cliente');
@@ -43,6 +45,7 @@ class Clientes extends CI_Controller {
 
     public function update($id) {
         $this->load->model('cliente');
+        $this->load->library('session');
 
         $cliente = $this->cliente->get($id);
         if (!$this->cliente->validaForm()) {
@@ -56,6 +59,7 @@ class Clientes extends CI_Controller {
             ], $id);
             
             if ($update) {
+                $this->session->set_flashdata('success', 'Cliente alterado com sucesso.');
                 redirect('clientes');
             } else {
                 show_error('Erro ao alterar os dados');
@@ -65,8 +69,10 @@ class Clientes extends CI_Controller {
 
     public function delete($id) {
         $this->load->model('cliente');
+        $this->load->library('session');
 
         if ($this->cliente->delete($id)) {
+            $this->session->set_flashdata('success', 'Cliente excluído com sucesso.');
             redirect('clientes');
         }
         show_error('Erro ao excluir.');
