@@ -36,4 +36,25 @@ class Cliente extends CI_Model {
         return $this->db->update($this->table, $data, ['id' => $id]);
     }
 
+    public function validaForm() {
+        $config = array(
+            array(
+                'field' => 'nome',
+                'label' => 'Nome',
+                'rules' => 'required|min_length[3]'
+            ),
+            array(
+                'field' => 'email',
+                'label' => 'Email',
+                'rules' => 'required|valid_email'
+            )
+        );
+        $this->form_validation->set_rules($config);
+        return $this->form_validation->run();
+    }
+    
+    public function getCadastradoEm(){
+        return date('d/m/Y', strtotime($this->cadastrado_em));
+    }
+
 }
