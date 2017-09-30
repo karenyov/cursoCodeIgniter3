@@ -9,7 +9,6 @@ class Login extends MY_Controller
 
         if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
             $this->require_min_level(1);
-            
         }
 
         $this->setup_login_form();

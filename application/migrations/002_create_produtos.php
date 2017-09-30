@@ -27,6 +27,6 @@ class Migration_Create_Produtos extends CI_Migration
 
     public function down()
     {
-        $this->dbforge->drop_table('clientes', true);
+        $this->dbforge->drop_table('produtos', true);
     }
 }

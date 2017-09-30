@@ -1,31 +1,35 @@
 <?php
-
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Clientes extends CI_Controller {
-
-    function __construct() {
-        parent::__construct();
-    }
-
-    public function index() {
+class Clientes extends CI_Controller
+{
+    public function index()
+    {
         $this->load->library('session');
         $this->load->model('cliente');
+
         $clientes = $this->cliente->getAll();
-        $data['clientes'] = $clientes;
-        $this->load->vars($data);
-        $this->load->view('clientes/list');
+
+        $this->load->view('clientes/list', [
+            'clientes' => $clientes
+        ]);
     }
 
-    public function get($id) {
-        echo 'Resgate um cliente codigo: ' . $id;
+    public function get($id)
+    {
+        echo 'Resgata um cliente codigo: ' . $id;
     }
 
-    public function cadastro() {
-        $this->load->model('cliente');
+    public function cadastro()
+    {
+        $this->load->helper(['form', 'url']);
         $this->load->library('session');
-        if ($this->cliente->validaForm()) {
+        $this->load->model('cliente');
 
+        if ($this->cliente->validaForm() === false) {
+            $this->load->view('clientes/cadastro');
+        } else {
+            // cadastrar o cliente
             $insert = $this->cliente->insert([
                 'nome' => $this->input->post('nome'),
                 'email' => $this->input->post('email'),
@@ -33,49 +37,53 @@ class Clientes extends CI_Controller {
             ]);
 
             if ($insert) {
-                $this->session->set_flashdata('success', 'Cliente cadastrado com sucesso.');
+                $this->session->set_flashdata('success', 'Cliente cadastrado com sucesso');
                 redirect('clientes');
             } else {
-                show_error('Erro ao cadastrar cliente');
+                show_error('Erro ao cadastra cliente');
             }
-        } else {
-            $this->load->view('clientes/cadastro');
         }
     }
 
-    public function update($id) {
-        $this->load->model('cliente');
+    public function update($id)
+    {
+        $this->load->helper(['form', 'url']);
         $this->load->library('session');
+        $this->load->model('cliente');
 
         $cliente = $this->cliente->get($id);
-        if (!$this->cliente->validaForm()) {
+
+        if ($this->cliente->validaForm() === false) {
             $this->load->view('clientes/update', [
                 'cliente' => $cliente
             ]);
         } else {
+            // Anti over post
             $update = $this->cliente->update([
                 'nome' => $this->input->post('nome'),
-                'email' => $this->input->post('email')
+                'email' => $this->input->post('email') 
             ], $id);
-            
+
             if ($update) {
-                $this->session->set_flashdata('success', 'Cliente alterado com sucesso.');
+                $this->session->set_flashdata('success', 'Cliente alterado com sucesso');
                 redirect('clientes');
             } else {
                 show_error('Erro ao alterar os dados');
             }
         }
+
     }
 
-    public function delete($id) {
-        $this->load->model('cliente');
+    public function delete($id)
+    {
+        $this->load->helper('url');
         $this->load->library('session');
+        $this->load->model('cliente');
 
         if ($this->cliente->delete($id)) {
-            $this->session->set_flashdata('success', 'Cliente excluído com sucesso.');
+            $this->session->set_flashdata('success', 'Cliente excluido com sucesso');
             redirect('clientes');
         }
-        show_error('Erro ao excluir.');
+        show_error('Erro ao excluir');
     }
-
 }
