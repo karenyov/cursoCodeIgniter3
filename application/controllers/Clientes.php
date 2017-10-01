@@ -1,8 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Clientes extends CI_Controller
+class Clientes extends MY_Controller
 {
+    public function __construct() {
+        parent::__construct();
+        $this->require_min_level(9);
+    }
+    
     public function index()
     {
         $this->load->library('session');
@@ -11,6 +16,16 @@ class Clientes extends CI_Controller
         $clientes = $this->cliente->getAll();
 
         $this->load->view('clientes/list', [
+            'clientes' => $clientes
+        ]);
+    }
+    
+    public function search($busca)
+    {
+        $this->load->model('cliente');
+        $clientes = $this->cliente->search($busca);
+
+        $this->load->view('clientes/tableajax', [
             'clientes' => $clientes
         ]);
     }

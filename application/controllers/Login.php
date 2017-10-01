@@ -1,10 +1,10 @@
 <?php
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Login extends MY_Controller
-{
-    public function index()
-    {
+class Login extends MY_Controller {
+
+    public function index() {
         $this->load->library('form_validation');
 
         if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
@@ -16,10 +16,10 @@ class Login extends MY_Controller
         $this->load->view('login');
     }
 
-    public function deslogar()
-    {
+    public function deslogar() {
         $this->load->helper('url');
         $this->authentication->logout();
         redirect('/login');
     }
+
 }

@@ -1,8 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Produtos extends CI_Controller
-{
+class Produtos extends MY_Controller
+{    
+    public function __construct() {
+        parent::__construct();
+        $this->require_min_level(1);
+    }
+    
     public function index($page=0)
     {
         $this->load->library('pagination');

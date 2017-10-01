@@ -20,6 +20,7 @@ class Welcome extends MY_Controller {
 	 */
 	public function index()
 	{
+                $this->require_min_level(1);
 		$this->load->view('home');
 	}
 
